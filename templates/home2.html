@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background-image: url('/static/icons/bg1.jpg');
+			background-position: center;
+			background-size: cover;
+		}
+		.user_card {
+			width: 450px;
+			height: 450px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: transparent;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 20px;
+			border: 2px solid rgba(255,255,255,0.5);
+			backdrop-filter: blur(12px);
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+			
+		}
+
+		.login_btn {
+			width: 230px;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+		.color_text {
+			color: white !important;
+		}
+		
+		
+	</style>
+
+</head>
+
+{% block content %}
+    <title><h1>Главная страница проекта</h1></title>
+
+    {% if user.is_authenticated %}
+    <ul class="list-group">
+    <li class="list-group-item">
+      <a href="{% url 'index' %}">Home</a>
+  </li>
+</ul>
+        <form method="POST" action="{% url 'new' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" id="image">
+            <br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+            <br>
+            <label for="secret">Secret:</label>
+            <input type="text" id="secret" name="secret">
+            <br>
+            <button type="submit">Submit</button>
+          </form>
+          
+        <form method="POST" action="{% url 'check_images' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" id="image">
+            <br>
+            
+            <button type="submit">Submit</button>
+          </form>
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <div class="container h-100">
+          <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+              <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center form_container">
+                Добро пожаловать в Blockchain_Test!
+                Blockchain_Test - децентрализованное веб-приложение с открытым исходным кодом. В его основе лежит блокчейн, который позволяет организовать распределенное хранение информации посредством создания взаимосвязанной цепочки блоков.
+                Данное веб-приложение направлено на предоставление клиентам возможности защищенного хранения цифровых изображений (фотографий, произведений искусства, логотипов организаций) в децентрализованной сети блоков и возможности последующего доступа к исходному файлу прямо из созданного блока.
+                
+                Одной из особенностью данного приложения является возможность клиента принимать полноценное участие в создании собственного блока. 
+                Он может воспользоваться следующим функционалом:
+                1. Заполнить информацию, которая будет храниться в блоке, и прикрепить исходный файл.
+                2. После проверки информации на потенциальное наличие ее в уже имеющихся блоках и получения индекса создаваемого блока, он может выполнить майнинг блока, то есть создать и поместить его в цепь блокчейна.
+                3. После этого он может проверить правильность внесенной информации и просмотреть всю цепь блокчейна, которая уже включает в себя блок, созданный клиентом.
+                
+                На этом создание блока заканчивается, но клиент может также воспользоваться и некоторыми другими функциями:
+                - Проверить правильность построения всей цепи блокчейна, в которой хранится его блок.
+                - Просмотреть созданные им блоки, чтобы убедиться, что к загруженным им файлам можно получить доступ и что они не были изменены или удалены.
+                - Провести анализ всех изображений в цепи блокчейна для выявления возможных созданных дубликатов его файлов.
+                
+                Если Вас заинтересовало данное приложение, Вы можете пройти простую регистрацию и создать свой собственный блок уже через несколько минут. Или если у Вас уже есть аккаунт, то воспользуйтесь своими данными для входа.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="container h-100">
+          <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+              <div class="d-flex justify-content-center">
+      
+      
+                <h3 id="form-title">ВХОД</h3>
+              </div>
+              <div class="d-flex justify-content-center form_container">
+                <form method="POST" action="{% url 'login' %}">
+                  {% csrf_token %}
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" name="username" placeholder="Username..." class="form-control">
+                  </div>
+                  <div class="input-group mb-2">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                      <input type="password" name="password" placeholder="Password..." class="form-control" >
+                  </div>
+      
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                       <input class="btn login_btn" type="submit" value="Login">
+                       </div>
+                </form>
+      
+              </div>
+          
+              <div class="mt-4">
+                <div class="d-flex justify-content-center links color_text">
+                  Нет аккаунта? <a href="{% url 'register' %}" class="ml-2">Регистрация</a>
+                </div>
+                <div class="d-flex justify-content-center links color_text">
+                   <a href="{% url 'password_reset' %}" class="ml-2">Забыли пароль?</a>
+                </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+{% endblock %}

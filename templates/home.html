@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+	<title>Добро пожаловать</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+
+	<style>
+		.main_page {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background-image: url('/static/icons/bg1.jpg');
+			background-position: center;
+			background-size: cover;
+		}
+		
+		.index_page {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background-image: url('/static/icons/bg1.jpg');
+			background-position: center;
+			background-size: cover;
+      		backdrop-filter: blur(20px);
+		}
+		.user_card {
+			width: 1100px;
+			height: 720px;
+      		margin-top: auto;
+			margin-bottom: auto;
+			background: transparent;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			
+			
+			backdrop-filter: blur(30px);
+		}
+
+		.form_container {
+			margin-top: 10px;
+		}
+
+		#form-title{
+			color: #fff;
+			
+		}
+
+		.login_btn {
+			width: 230px;
+			background: rgb(0,255,90) !important;
+			color: black !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+		.color_text {
+			color: white !important;
+		}
+	
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      justify-content: center;
+    }
+	
+	.text_header {
+		text-align: center;
+	}
+
+	</style>
+
+</head>
+<body>
+	{% if user.is_authenticated %}
+	{% include "main.html" %}
+	<!--
+	<ul class="list-group">
+	<li class="list-group-item text_header">Вы авторизованы как <b>{{user}}</b> | <a href="{% url 'logout' %}">Выйти</a></li>
+</ul>
+        <form method="POST" action="{% url 'new' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" id="image">
+            <br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+            <br>
+            <label for="watermark">watermark:</label>
+            <input type="text" id="watermark" name="watermark">
+            <br>
+            <button type="submit">Submit</button>
+          </form>
+          
+        <form method="POST" action="{% url 'check_images' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" id="image">
+            <br>
+            
+            <button type="submit">Submit</button>
+          </form>
+          <a href="{% url 'logout' %}">Logout</a>-->
+        {% else %}
+<div class="index_page">
+		<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<!--Название страницы-->
+        <div class="d-flex justify-content-center">
+					<h3 id="form-title">ДОБРО ПОЖАЛОВАТЬ В BLOCKCHAIN_TEST!</h3>
+				</div>
+				<!--Основная информация о проекте-->
+        <div class=" justify-content-center form_container color_text">
+                <p>Blockchain_Test - децентрализованное веб-приложение с открытым исходным кодом. В его основе лежит блокчейн, который позволяет организовать распределенное хранение информации посредством создания взаимосвязанной цепочки блоков.
+                Данное веб-приложение направлено на предоставление клиентам возможности защищенного хранения цифровых изображений (фотографий, произведений искусства, логотипов организаций) в децентрализованной сети блоков и возможности последующего доступа к исходному файлу прямо из созданного блока.
+                </p>
+                <p>Одной из особенностью данного приложения является возможность клиента принимать полноценное участие в создании собственного блока. 
+                Он может воспользоваться следующим функционалом:
+                <ol>
+                  <li>Заполнить информацию, которая будет храниться в блоке, и прикрепить исходный файл.</li>
+                  <li>После проверки информации на потенциальное наличие ее в уже имеющихся блоках и получения индекса создаваемого блока, он может выполнить майнинг блока, то есть создать и поместить его в цепь блокчейна.</li>
+                  <li>После этого он может проверить правильность внесенной информации и просмотреть всю цепь блокчейна, которая уже включает в себя блок, созданный клиентом.</li>
+                </ol>
+                </p>
+                <p>
+                На этом создание блока заканчивается, но клиент может также воспользоваться и некоторыми другими функциями:
+                <ul>
+                <li>Проверить правильность построения всей цепи блокчейна, в которой хранится его блок.</li>
+                <li>Просмотреть созданные им блоки, чтобы убедиться, что к загруженным им файлам можно получить доступ и что они не были изменены или удалены.</li>
+                <li>Провести анализ всех изображений в цепи блокчейна для выявления возможных созданных дубликатов его файлов.</li>
+                </ul>
+                </p>
+                Если Вас заинтересовало данное приложение, Вы можете пройти простую регистрацию и создать свой собственный блок уже через несколько минут. Или если у Вас уже есть аккаунт, то воспользуйтесь своими данными для входа.
+				</div>
+        <!--Ссылки для входа-->
+				<div class="mt-4">
+					<div class="buttons">
+						<a href="{% url 'login' %}" class="ml-2 btn login_btn">Вход</a>
+            <a href="{% url 'register' %}" class="ml-2 btn login_btn">Регистрация</a>
+					</div>
+        </div>
+
+			</div>
+		</div>
+	</div>
+</div>
+	{% endif %}
+</body>
+
+</html>
